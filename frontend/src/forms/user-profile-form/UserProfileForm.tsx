@@ -1,3 +1,5 @@
+import LoadingButton from "@/components/LoadingButton";
+import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -109,6 +111,13 @@ const UserProfileForm = ({
                         )}
                     />
                 </div>
+                {isLoading ? (
+                    <LoadingButton />
+                ) : (
+                    <Button type="submit" className="bg-orange-500">
+                        {buttonText}
+                    </Button>
+                )}
             </form>
         </Form>
     )
