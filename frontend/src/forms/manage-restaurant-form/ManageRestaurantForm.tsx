@@ -15,7 +15,7 @@ const formSchema = z.object({
         required_error: "Restaurant name is required",
     }),
     city: z.string({
-        required_error: "city is required",
+        required_error: "City is required",
     }),
     country: z.string({
         required_error: "Country is required",
