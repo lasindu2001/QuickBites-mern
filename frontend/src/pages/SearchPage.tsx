@@ -1,15 +1,39 @@
 import { useSearchRestaurants } from "@/api/RestaurantApi";
 import CuisineFilter from "@/components/CuisineFilter";
-import SearchBar from "@/components/SearchBar";
+import SearchBar, { SearchForm } from "@/components/SearchBar";
 import SearchResultCard from "@/components/SearchResultCard";
 import SearchResultInfo from "@/components/SearchResultInfo";
 import SortOptionDropdown from "@/components/SortOptionDropdown";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+
+export type SearchState = {
+    searchQuery: string;
+};
 
 const SearchPage = () => {
     const { city } = useParams();
 
-    const { results, isLoading } = useSearchRestaurants(city);
+    const [searchState, setSearchState] = useState<SearchState>({
+        searchQuery: "",
+    });
+    const [isExpanded, setIsExpanded] = useState<boolean>(false);
+
+    const { results, isLoading } = useSearchRestaurants(searchState, city);
+
+    const setSearchQuery = (searchFormData: SearchForm) => {
+        setSearchState((prevState) => ({
+            ...prevState,
+            searchQuery: searchFormData.searchQuery,
+        }));
+    };
+
+    const resetSearch = () => {
+        setSearchState((prevState) => ({
+            ...prevState,
+            searchQuery: "",
+        }));
+    };
 
     if (isLoading) {
         <span>Loading ...</span>;
@@ -26,9 +50,10 @@ const SearchPage = () => {
             </div>
             <div id="main-content" className="flex flex-col gap-5">
                 <SearchBar
-                    searchQuery=""
+                    searchQuery={searchState.searchQuery}
                     placeHolder="Search by Cuisine or Restaurant Name"
-                    onSubmit={() => { }}
+                    onSubmit={setSearchQuery}
+                    onReset={resetSearch}
                 />
                 <div className="flex justify-between flex-col gap-3 lg:flex-row">
                     <SearchResultInfo

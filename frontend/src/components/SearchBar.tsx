@@ -5,6 +5,7 @@ import { Form, FormControl, FormField, FormItem } from "./ui/form";
 import { Search } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useEffect } from "react";
 
 const formSchema = z.object({
     searchQuery: z.string({
@@ -28,6 +29,10 @@ const SearchBar = ({ onSubmit, onReset, placeHolder, searchQuery }: Props) => {
             searchQuery,
         },
     });
+
+    useEffect(() => {
+        form.reset({ searchQuery });
+    }, [form, searchQuery]);
 
     const handleReset = () => {
         form.reset({
