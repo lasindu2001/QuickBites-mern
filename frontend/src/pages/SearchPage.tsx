@@ -12,6 +12,7 @@ export type SearchState = {
     searchQuery: string;
     page: number;
     selectedCuisines: string[];
+    sortOption: string;
 };
 
 const SearchPage = () => {
@@ -21,10 +22,19 @@ const SearchPage = () => {
         searchQuery: "",
         page: 1,
         selectedCuisines: [],
+        sortOption: "bestMatch",
     });
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
     const { results, isLoading } = useSearchRestaurants(searchState, city);
+
+    const setSortOption = (sortOption: string) => {
+        setSearchState((prevState) => ({
+            ...prevState,
+            sortOption,
+            page: 1,
+        }));
+    };
 
     const setSelectedCuisines = (selectedCuisines: string[]) => {
         setSearchState((prevState) => ({
@@ -87,7 +97,10 @@ const SearchPage = () => {
                         total={results.pagination.total}
                         city={city}
                     />
-                    <SortOptionDropdown />
+                    <SortOptionDropdown
+                        sortOption={searchState.sortOption}
+                        onChange={(value) => setSortOption(value)}
+                    />
                 </div>
                 {results.data.map((restaurant) => (
                     <SearchResultCard restaurant={restaurant} />
