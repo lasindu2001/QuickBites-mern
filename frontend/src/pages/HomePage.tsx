@@ -31,7 +31,7 @@ const HomePage = () => {
                         Order takeaway even faster!
                     </span>
                     <span>
-                        Download the LasiyaEats App for faster ordering and personalised recommendations
+                        Download the QuickBites App for faster ordering and personalised recommendations
                     </span>
                     <img src={appDownloadImage} />
                 </div>
