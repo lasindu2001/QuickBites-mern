@@ -8,6 +8,7 @@ const Footer = () => {
                 <span className="text-white font-bold tracking-tight flex gap-4">
                     <span>Privacy Policy</span>
                     <span>Terms of Service</span>
+                    <span>Developed by Lasindu Maduranga (IS UG | SUSL)</span>
                 </span>
             </div>
         </div>
